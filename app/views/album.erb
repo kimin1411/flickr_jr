@@ -1,0 +1,5 @@
+<h1>All photos of "<%= @album.name %>"</h1>
+<% @photos.each do |x| %>
+<a href="/albums/<%= @album.id %>/<%= x.id %>">
+  <img src="<%= x.file %>"></a>
+<% end %>

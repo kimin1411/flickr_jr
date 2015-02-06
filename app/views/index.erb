@@ -1,0 +1,40 @@
+<div class="container">
+  <h1>Welcome to Sinatra!</h1>
+<%= "Hello, #{@username}" unless session['user_id'].nil? %><br>
+
+<a href='/login'>LOGIN</a>
+<a href='/logout'>LOGOUT</a>
+<br><br>
+
+<h2>Create an album</h2>
+<form action="/createalbum" method="post">
+  <input type="text" name="album">
+  <input type="submit" value="Create">
+
+</form>
+
+
+
+<h3>Upload a photo!</h3>
+<form action="/upload" enctype="multipart/form-data" method="post">
+  <input type="file" name="image">
+  <select name="album_id">
+  <% unless session['user_id'].nil? %>
+    <% @albums.each do |album| %>
+      <option value="<%= album.id %>"><%= album.name %></option>
+    <%end%>
+  <%end%>
+  </select>
+
+  <input type="submit" value="Upload">
+</form>
+
+<div class="gallery">
+  <% @random_photos.each do |photo| %>
+  <a href="/albums/<%= photo.album_id %>/<%= photo.id %>">
+  <img src="<%= photo.file %>"></a>
+  <% end %>
+</div>
+
+</div>
+
